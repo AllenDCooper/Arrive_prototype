@@ -28,6 +28,12 @@
   color: #61dafb;
 }
 
+.jumbotron {
+  padding-top: 3rem!important;
+  padding-bottom: 3rem!important;
+  display: block;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

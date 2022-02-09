@@ -1,0 +1,54 @@
+.main-title {
+  font-size: 4.5rem;
+  /* letter-spacing: 5px; */
+}
+
+.blue {
+  color: rgb(11, 52, 198);
+}
+
+.pink {
+  color: hotpink;
+}
+
+.red {
+  color: rgb(211, 33, 33);
+}
+
+.white-jumbotron {
+  background-color: white;
+}
+
+.ride-line {
+  content: '';
+  height: 1px;
+  width: 100%;
+  left: 0;
+  background-color: #ededf4;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
+
+.ride-line-span {
+  background-color: #fff;
+  padding-left: 12px;
+  padding-right: 12px;
+  display: inline-block;
+  line-height: 24px;
+  position: absolute;
+  top: -1rem;
+  z-index: 2;
+  color: #747487;
+  box-sizing: border-box;
+  margin-left: -20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-title {
+    font-size: 3rem;
+    /* letter-spacing: 5px; */
+  }
+}
