@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, NavDropdown, Form, Col } from 'react-bootstrap';
+import { Button, Modal, NavDropdown, Form, Col, Row } from 'react-bootstrap';
 
 import { updateUserProfile, auth } from '../../firebase';
 import firebase from "firebase/app";
@@ -48,8 +48,19 @@ const EditProfile = (props) => {
   }
 
   return (
-    <>
-      <NavDropdown.Item onClick={handleShow}>Edit Profile</NavDropdown.Item>
+    <div>
+      <NavDropdown.Item onClick={handleShow}>
+        <div
+        style={{ marginRight: "20px", fontSize: '25px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', textDecoration: 'none', color: '#fff', fontWeight: '100' }}
+        >
+        <img
+          alt='profile icon'
+          src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/Icons_Profile.svg'
+          style={{ height: '50px', width: '50px' }}
+        />
+        <p style={{ marginTop: '15px' }} >Profile</p>
+        </div>
+      </NavDropdown.Item>
 
       <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -57,32 +68,32 @@ const EditProfile = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
-            <Form.Row>
+            <Row>
               <Form.Label column lg={2}>
                 Display Name
               </Form.Label>
               <Col>
                 <Form.Control type="text" name="displayName" value={userInput.displayName} onChange={handleChange} />
               </Col>
-            </Form.Row>
+            </Row>
             <br />
-            <Form.Row>
+            <Row>
               <Form.Label column lg={2}>
                 Phone Number
               </Form.Label>
               <Col>
                 <Form.Control type="text" name="phoneNumber" value={userInput.phoneNumber} onChange={handleChange} />
               </Col>
-            </Form.Row>
+            </Row>
             <br />
-            <Form.Row>
+            <Row>
               <Form.Label column lg={2}>
                 Image URL
               </Form.Label>
               <Col>
                 <Form.Control type="text" name="photoURL" value={userInput.photoURL} onChange={handleChange} />
               </Col>
-            </Form.Row>
+            </Row>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -95,7 +106,7 @@ const EditProfile = (props) => {
         </Modal.Footer>
       </Modal>
 
-    </>
+    </div>
   );
 }
 

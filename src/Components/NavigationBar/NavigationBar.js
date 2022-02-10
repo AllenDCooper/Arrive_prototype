@@ -59,7 +59,14 @@ function NavigationBar(props) {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-12">
                 <Nav.Link
-                  style={{ marginRight: "20px", fontSize: '25px', marginTop: '150px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', textDecoration: 'none', color: '#fff', fontWeight: '100' }}
+                  style={{ marginRight: "20px", fontSize: '25px', marginTop: '175px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', textDecoration: 'none', color: '#fff', fontWeight: '100' }}
+
+                >
+                  <EditProfile user={props.user} updateUserInState={props.updateUserInState} />
+                </Nav.Link>
+
+                <Nav.Link
+                  style={{ marginRight: "20px", fontSize: '25px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', textDecoration: 'none', color: '#fff', fontWeight: '100' }}
                   onClick={() => { auth.signOut() }}
                 >
                   <img
@@ -67,7 +74,7 @@ function NavigationBar(props) {
                     src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/Icons_Sign-Out.svg'
                     style={{ height: '50px', width: '50px' }}
                   />
-                  <p style={{marginTop: '15px'}} >Sign Out</p>
+                  <p style={{ marginTop: '15px' }} >Sign Out</p>
                 </Nav.Link>
                 {/* <Nav.Link href="#action1">Home</Nav.Link>
                 <Nav.Link href="#action2">Link</Nav.Link>
