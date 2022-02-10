@@ -89,9 +89,13 @@ class App extends Component {
             />
 
             <Route exact path="/main">
-              <NavigationBar user={this.state.user} displayName={this.state.displayNameFromForm} updateUserInState={this.updateUserInState} />
+              {/* <NavigationBar user={this.state.user} displayName={this.state.displayNameFromForm} updateUserInState={this.updateUserInState} /> */}
 
-              {!this.state.user ? <Redirect to="/" /> : <Main />}
+              {!this.state.user
+                ?
+                <Redirect to="/" />
+                :
+                <Main user={this.state.user} displayName={this.state.displayNameFromForm} updateUserInState={this.updateUserInState} />}
             </Route>
 
             <Route exact path="/about">

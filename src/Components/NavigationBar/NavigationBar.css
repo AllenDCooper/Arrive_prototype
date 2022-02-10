@@ -1,0 +1,14 @@
+.course-page-wrapper {
+  width: 768px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-toggler-white-icon {
+  background-color: #1565c0;
+  background-image: url('../../../public/toggler_icon_white.svg');
+  width: 40px;
+  height: 40px;
+  border: none;
+}
