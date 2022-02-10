@@ -55,7 +55,7 @@ const SignIn = (props) => {
       <Container>
 
         <div className="jumbotron" style={{ marginBottom: '0px', textAlign: "center" }}>
-          <img alt="iClicker Student Logo" src="https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/white-iclicker-student-logo.png" style={{ height: 'auto', width: '100%;', color: 'red', maxWidth: '450px', minWidth: '197px' }} />
+          <img alt="iClicker Student Logo" src="https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/white-iclicker-student-logo.png" style={{ height: 'auto', width: '100%', color: 'red', maxWidth: '450px', minWidth: '197px', marginTop: '80px' }} />
           {/* <h6 className="montserrat">
             {typed}
             <span className="cursor">
@@ -65,7 +65,7 @@ const SignIn = (props) => {
         </div>
 
         <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-          {userInput.error && <p style={{ color: 'red' }}>{userInput.error}</p>}
+          {userInput.error && <p style={{ color: 'darkred' }}>{userInput.error}</p>}
           <Form onSubmit={handleSubmit}>
 
             <Form.Group controlId="userEmail" style={{ color: '#fff' }} >
@@ -113,18 +113,19 @@ const SignIn = (props) => {
                 variant="light"
                 // size="md"
                 block onClick={signInWithGoogle}
-                style={{ height: '45px', color: '#1565c0', backgroundColor: 'rgba(255,255,255,0.25)', border: 'none' }}
+                style={{ height: '45px', color: '#1565c0', backgroundColor: 'rgba(255,255,255,0.75)', border: 'none' }}
               >
                 <img alt='Google Logo' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAABNVBMVEUAAAD/PgBJsUT/OwANdNRHsEtHsEpHsEoNddT/PABKsEp1tSr/YwD/OwD/wwD/OwD/wgD/PAD/OwBPsUj/wQAMdNX/PAD/PQBWskNIr0r/wgD/PABKsEj/OgBIr0j/PwD/OgAPddb/QQD/wwD/QABHr0tJr0r/wgAMdNX/wgAMdNb/OwALddU5oW9Hr0z/PAD/OwBnsz9HsEr/OwAOdNP/PABIsUv/iAALdNX/OwD/PQBMsEhIsEoMddVIsEr/OwD/PQD/OgDRuxL/vQAMdNVJr0n/QAALddT/wwD/vwAWd89Nskj/PwBMrEX/vwBAr0j/xQD/RwAQcM//TAAMdNX/OwBHsEv/wgBAqFwSecgTfMMagbYljJ1PsUdnsz6StyyvuiDdvw7/sQD/kQD/dwD/WAD/RgBL4Ss6AAAAVHRSTlMAEBLf+e/ix8W2gggH+PfvyMSal5eNfWNhYF9fRkY+OiMZFQgE+vbv7Obl49/Y2NbLv769uLe0tLKsqKebl5WThYOAgG5paEhIRDo1NSUkIB8ZEAp/9d8/AAABMklEQVQ4y8XQ13LCMBBA0cWEDkmAhBI6pPfee+8VrUjv+f9PiNkRjCzZfuU8WTt3ZmVBB0ULidkYY7H4TsEp8aR6WNtEymPXpM1E5k3rTYJp9tRmnenWBq3Nrk2zpDTHTFjIlR+i5VzI/AwpN696GZkpgVDyqg0c/FATl+Z3agNj/PvP/OcquDjjnH/9sktw08ebVsBVL0UDINRlXUEx7aboWo+oElNOonpELFHNKZLX3bqu0y8uC8pP8DkHikWKtsTp1Gw+XrFobc7r5EQcayP8HRGnDbmpTFIzCi37b9gUkKr7YJ30Q4vhQ+K/AKE49UjNeAXaMigsZ68ikZvsPGLjqRkdgiSJmsYzLZNtoO5lFRRhPUqC5shvTXwZsGGE/VISNsBBfjswhDgc2MxHoHP+AVnAlPxGJFfYAAAAAElFTkSuQmCC' />
 
               </Button>
-              <p style={{ color: 'rgba(255,255,255,0.75)' }}>Google</p>
+              <p style={{ marginTop: '15px', color: 'rgba(255,255,255,0.75)' }}>Google</p>
             </div>
 
           </Form>
 
-          <p style={{ paddingBottom: '100px', color: '#fff', textAlign: 'center'}}>
-            Don't have an account? <Link style={{textDecoration: 'none', color:'#fff', fontWeight: '600'}} to="/signUp">Sign up!</Link>
+          <p style={{ paddingBottom: '100px', color: '#fff', textAlign: 'center'}} >
+            Don't have an account?
+            <Link style={{textDecoration: 'none', color:'#fff', fontWeight: '600'}} to="/signUp"> Sign up!</Link>
           </p>
 
         </div>
