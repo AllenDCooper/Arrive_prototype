@@ -11,6 +11,8 @@ const EditProfile = (props) => {
     displayName: props.user.displayName,
     phoneNumber: props.user.phoneNumber,
     photoURL: props.user.photoURL,
+    // testing goal
+    goal: props.user.goal,
     error: null,
   })
 
@@ -28,6 +30,10 @@ const EditProfile = (props) => {
     } else if (name === 'displayName') {
       setUserInput({ ...userInput, displayName: value })
     }
+    // testing goal
+    else if (name === 'userGoal') {
+      setUserInput({ ...userInput, goal: value })
+    }
   }
 
   const handleSubmit = (event) => {
@@ -38,7 +44,9 @@ const EditProfile = (props) => {
       email: user.email,
       displayName: userInput.displayName,
       phoneNumber: userInput.phoneNumber,
-      photoURL: userInput.photoURL
+      photoURL: userInput.photoURL,
+      // testing goal
+      goal: userInput.goal
     }
     console.log(updatedUserObj)
 
@@ -51,14 +59,14 @@ const EditProfile = (props) => {
     <div>
       <NavDropdown.Item onClick={handleShow}>
         <div
-        style={{ marginRight: "20px", fontSize: '25px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', textDecoration: 'none', color: '#fff', fontWeight: '100' }}
+          style={{ marginRight: "20px", fontSize: '25px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', textDecoration: 'none', color: '#fff', fontWeight: '100' }}
         >
-        <img
-          alt='profile icon'
-          src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/Icons_Profile.svg'
-          style={{ height: '50px', width: '50px' }}
-        />
-        <p style={{ marginTop: '15px' }} >Profile</p>
+          <img
+            alt='profile icon'
+            src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/Icons_Profile.svg'
+            style={{ height: '50px', width: '50px' }}
+          />
+          <p style={{ marginTop: '15px' }} >Profile</p>
         </div>
       </NavDropdown.Item>
 
@@ -92,6 +100,14 @@ const EditProfile = (props) => {
               </Form.Label>
               <Col>
                 <Form.Control type="text" name="photoURL" value={userInput.photoURL} onChange={handleChange} />
+              </Col>
+            </Row>
+            <Row>
+              <Form.Label column lg={2}>
+                Goal
+              </Form.Label>
+              <Col>
+                <Form.Control type="text" name="userGoal" value={userInput.userGoal} onChange={handleChange} />
               </Col>
             </Row>
           </Form.Group>

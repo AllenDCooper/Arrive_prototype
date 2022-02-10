@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Container } from 'react-bootstrap';
 import NavigationBar from '../../Components/NavigationBar/NavigationBar';
+import InstitutionalSpace from '../InstitutionalSpace/InstitutionalSpace'
 import './Main.css'
 
 class Main extends Component {
@@ -36,40 +37,52 @@ class Main extends Component {
         instructor: 'Matthew Horitz',
         institution: 'Compass College'
       }
-    ]
+    ],
+    courseClicked: false
+  }
+
+  courseClickChange = (event) => {
+    this.setState({
+      courseClicked: !this.state.courseClicked
+    })
   }
 
   render() {
     return (
+      this.state.courseClicked ?
+      <InstitutionalSpace courseClickChange={this.courseClickChange} />
+      :
       <div className="course-page-wrapper">
         <NavigationBar user={this.props.user} displayName={this.props.displayName} updateUserInState={this.props.updateUserInState} />
-        <Container style={{padding: '0px'}}>
+        <Container style={{ padding: '0px' }}>
           {this.state.courseArr.map(item => (
             // <li style={{ marginBottom: '10px'}}>
             //   <p style={{margin: '0px'}} >{item.name}</p>
             //   <p style={{margin: '0px'}} >{item.instructor}</p>
             //   <p style={{margin: '0px'}} >{item.institution}</p>
             // </li>
-            item.isInstitutional ? 
-            <Card style={{borderRadius: '0px', backgroundColor: "#064d9e", color: '#fff'}}>
-              <Card.Body>
-                <Card.Title style={{marginBottom: '5px', fontSize: '18px', fontWeight: '600', color: '#fff'}}>{item.name}</Card.Title>
-                <Card.Text style={{marginBottom: '0px', fontSize: '14px', fontWeight: '600', color: '#fff'}}>
-                  {item.instructor}
-                </Card.Text>
-                <p style={{marginBottom: '0px', fontSize: '14px', color:'#fff'}} >{item.institution}</p>
-              </Card.Body>
-            </Card>
-            :
-            <Card style={{borderRadius: '0px'}}>
-              <Card.Body>
-                <Card.Title style={{marginBottom: '5px', fontSize: '18px', fontWeight: '600', color: '#1565c0'}}>{item.name}</Card.Title>
-                <Card.Text style={{marginBottom: '0px', fontSize: '14px', fontWeight: '600'}}>
-                  {item.instructor}
-                </Card.Text>
-                <p style={{marginBottom: '0px', fontSize: '14px', color:'#666'}} >{item.institution}</p>
-              </Card.Body>
-            </Card>
+            item.isInstitutional ?
+              <div onClick={this.courseClickChange} >
+                <Card style={{ borderRadius: '0px', backgroundColor: "#064d9e", color: '#fff' }}>
+                  <Card.Body>
+                    <Card.Title style={{ marginBottom: '5px', fontSize: '18px', fontWeight: '600', color: '#fff' }}>{item.name}</Card.Title>
+                    <Card.Text style={{ marginBottom: '0px', fontSize: '14px', fontWeight: '600', color: '#fff' }}>
+                      {item.instructor}
+                    </Card.Text>
+                    <p style={{ marginBottom: '0px', fontSize: '14px', color: '#fff' }} >{item.institution}</p>
+                  </Card.Body>
+                </Card>
+              </div>
+              :
+              <Card style={{ borderRadius: '0px' }}>
+                <Card.Body>
+                  <Card.Title style={{ marginBottom: '5px', fontSize: '18px', fontWeight: '600', color: '#1565c0' }}>{item.name}</Card.Title>
+                  <Card.Text style={{ marginBottom: '0px', fontSize: '14px', fontWeight: '600' }}>
+                    {item.instructor}
+                  </Card.Text>
+                  <p style={{ marginBottom: '0px', fontSize: '14px', color: '#666' }} >{item.institution}</p>
+                </Card.Body>
+              </Card>
           ))}
         </Container>
       </div>
