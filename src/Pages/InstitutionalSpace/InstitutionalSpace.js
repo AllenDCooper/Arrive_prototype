@@ -72,7 +72,7 @@ class InstitutionalSpace extends Component {
               <Card variant="primary" style={{ border: 'none' }} onClick={this.handleOpen}>
                 <Row style={{ margin: '0px' }}>
                   <Col xs={2} style={{ position: 'relative', padding: '0px' }}>
-                    <img style={{ width: '100%', maxWidth: '100px', margin: '5px', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }} alt='ACES logo' src='/aces.png' />
+                    <img style={{ width: '100%', maxWidth: '100px', margin: '5px', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }} alt='ACES logo' src='./aces.png' />
                   </Col>
                   <Col xs={8}>
                     <Card.Body>
