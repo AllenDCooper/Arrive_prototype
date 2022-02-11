@@ -1,6 +1,6 @@
 {
   "name": "arrive_prototype",
-  "homepage": "https://allendcooper.github.io/arrive_prototype/",
+  "homepage": "https://arrive.education/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -28,12 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+
   "browserslist": {
     "production": [
       ">0.2%",
