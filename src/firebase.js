@@ -40,7 +40,8 @@ export const updateUserProfile = (user, updatedUser, callback) => {
         email: user.email,
         photoURL: updatedUser.photoURL || null,
         // testing goal
-        goal: updatedUser.goal
+        goal: updatedUser.goal || null,
+        strengthsArr: updatedUser.strengthsArr || null
       }
       if (updatedUser.phoneNumber) {newUserObj.phoneNumber = updatedUser.phoneNumber}
       console.log(callback)
@@ -56,6 +57,16 @@ export const updateUserProfile = (user, updatedUser, callback) => {
     .catch(function (error) {
       console.log(`Error updating user profile:`, error)
     });
+}
+
+export const updateUserObjInDB = (userID, prop) => {
+  database.ref('users/' + user.uid).update(prop)
+  .then(() => {
+    console.log(`Successfully updated profile`)
+  })
+  .catch(function (error) {
+    console.log(`Error updating user profile:`, error)
+  });
 }
 
 export const signInWithGoogle = () => {

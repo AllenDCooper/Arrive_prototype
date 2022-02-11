@@ -13,6 +13,9 @@ import normTable from '../../ACES_Assessment/normTable.js';
 import itemsArr from '../../ACES_Assessment/itemsArr';
 import scales from '../../ACES_Assessment/scales';
 
+// import firebase function
+import { updateUserObjInDB } from '../../firebase';
+
 class InstitutionalSpace extends Component {
 
   state = {
@@ -172,6 +175,8 @@ class InstitutionalSpace extends Component {
     return strengthsArr
   }
 
+  update
+
   // function aggregates individual answers stored in answerArr into scales
   // passed as props into ModalAssessment component where it is called when assessment is submitted
   submitScore = (goal) => {
@@ -186,6 +191,12 @@ class InstitutionalSpace extends Component {
 
     // sort percentile array into 3 arrays: strengths, developing strengths, and growth areas
     const strengthsArr = this.sortStrengths([...goalsArr])
+
+    // const updatedUserObj ={
+    //   strengthsArr: strengthsArr
+    // }
+
+    const user = firebase.auth().currentUser;
 
     // save into state
     this.setState(state => {
@@ -210,6 +221,9 @@ class InstitutionalSpace extends Component {
       ,
       () => {
         console.log(`submitScore function successfully run`)
+        updateUserObjInDB(user.uid, {
+          strengthsArr: strengthsArr
+        })
         this.saveCompletedGoal(scales)
       }
     );

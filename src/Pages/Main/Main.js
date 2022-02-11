@@ -50,7 +50,7 @@ class Main extends Component {
   render() {
     return (
       this.state.courseClicked ?
-      <InstitutionalSpace courseClickChange={this.courseClickChange} />
+      <InstitutionalSpace courseClickChange={this.courseClickChange} updateUserInState={this.props.updateUserInState}/>
       :
       <div className="course-page-wrapper">
         <NavigationBar user={this.props.user} displayName={this.props.displayName} updateUserInState={this.props.updateUserInState} />
