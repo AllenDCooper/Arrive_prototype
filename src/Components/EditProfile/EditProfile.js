@@ -57,7 +57,7 @@ const EditProfile = (props) => {
 
   return (
     <div>
-      <NavDropdown.Item onClick={handleShow}>
+      <div onClick={handleShow} style={{textDecoration: 'none'}}>
         <div
           style={{ marginRight: "20px", fontSize: '25px', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', textDecoration: 'none', color: '#fff', fontWeight: '100' }}
         >
@@ -68,7 +68,7 @@ const EditProfile = (props) => {
           />
           <p style={{ marginTop: '15px' }} >Profile</p>
         </div>
-      </NavDropdown.Item>
+      </div>
 
       <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -102,6 +102,7 @@ const EditProfile = (props) => {
                 <Form.Control type="text" name="photoURL" value={userInput.photoURL} onChange={handleChange} />
               </Col>
             </Row>
+            <br />
             <Row>
               <Form.Label column lg={2}>
                 Goal

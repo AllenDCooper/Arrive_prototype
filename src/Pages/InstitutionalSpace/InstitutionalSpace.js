@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Accordion, Card, Container } from 'react-bootstrap';
+import { Button, Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 import NavigationBarInCourse from '../../Components/NavigationBarInCourse/NavigationBarInCourse';
 import './InstitutionalSpace.css'
 // importing components
@@ -66,32 +66,35 @@ class InstitutionalSpace extends Component {
         <Container style={{ padding: '0px' }}>
         </Container>
 
-        {/* <Accordion>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>Accordion Item #1</Accordion.Header>
-              <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                est laborum.
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>Accordion Item #2</Accordion.Header>
-              <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                est laborum.
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion> */}
+        <Accordion>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>
+              <Card variant="primary" style={{ border: 'none' }} onClick={this.handleOpen}>
+                <Row style={{ margin: '0px' }}>
+                  <Col xs={2} style={{ position: 'relative', padding: '0px' }}>
+                    <img style={{ width: '100%', maxWidth: '100px', margin: '5px', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }} alt='ACES logo' src='/aces.png' />
+                  </Col>
+                  <Col xs={8}>
+                    <Card.Body>
+                      <Card.Title style={{ fontSize: '14px' }}>ACES Strengths Assessment</Card.Title>
+                      <Card.Subtitle style={{ fontSize: '12px' }} className="mb-2 text-muted">Discover your strengths and growth areas</Card.Subtitle>
+                      <Card.Text style={{ fontSize: '12px' }}>
+                        This 20-minute self-assessment has no right answers and no wrong answers. It is designed by experts in counseling psychology to help you identify your inner assets, grow new ones, and overcome your obstacles.
+                      </Card.Text>
+                    </Card.Body>
+                  </Col>
+                  <Col xs={1}>
+
+                  </Col>
+                </Row>
+              </Card>
+            </Accordion.Header>
+            <Accordion.Body>
+              <ModalAssessment updateScore={this.updateScore} submitScore={this.submitScore} randomScore={this.randomScore} />
+
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
 
         <div>
           {/* <Scorecard spinnerOn={this.state.spinnerOn} strengthsArr={this.state.strengthsArr} goalsArr={this.state.goalsArr} /> */}
@@ -107,9 +110,6 @@ class InstitutionalSpace extends Component {
                   </Accordion.Collapse>
                 </Card>
               </Accordion> */}
-
-            <ModalAssessment updateScore={this.updateScore} submitScore={this.submitScore} randomScore={this.randomScore} />
-
           </section>
         </div>
 

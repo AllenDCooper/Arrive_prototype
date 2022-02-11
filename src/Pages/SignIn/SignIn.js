@@ -55,7 +55,7 @@ const SignIn = (props) => {
       <Container>
 
         <div className="jumbotron" style={{ marginBottom: '0px', textAlign: "center" }}>
-          <img alt="iClicker Student Logo" src="https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/white-iclicker-student-logo.png" style={{ height: 'auto', width: '100%', color: 'red', maxWidth: '450px', minWidth: '197px', marginTop: '80px' }} />
+          <img alt="iClicker Student Logo" src="/white-arrive-student-logo4.png" style={{ height: 'auto', width: '100%', color: 'red', maxWidth: '450px', minWidth: '197px', marginTop: '80px' }} />
           {/* <h6 className="montserrat">
             {typed}
             <span className="cursor">

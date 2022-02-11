@@ -6,8 +6,8 @@ import FormCheck from '../FormCheck/FormCheck';
 class ModalAssessment extends Component {
 
   state = {
-    show: 0,
-    setShow: 0,
+    show: 1,
+    setShow: 1,
     validated: false,
   }
 
@@ -83,7 +83,7 @@ class ModalAssessment extends Component {
     const chunkedArrays = this.createChunkedArrays(itemsArr, 10)
     return (
       <div>
-        <Card variant="primary" onClick={this.handleOpen}>
+        {/* <Card variant="primary" onClick={this.handleOpen} style={{margin: '0px'}}>
           <Row style={{margin: '0px'}}>
             <Col xs={2} style={{position: 'relative', padding: '0px'}}>
               <img style={{width: '100%', maxWidth: '100px', margin: '5px', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)'}} alt='ACES logo' src='/aces.png'/>
@@ -101,22 +101,26 @@ class ModalAssessment extends Component {
 
             </Col>
           </Row>
-        </Card>
+        </Card> */}
         {chunkedArrays.map((item, index) => (
-          <Modal size="xl" key={`key-${index}`} show={this.state.show === (index + 1)} onHide={this.handleCancel}>
+          <div
+            size="xl" key={`key-${index}`}
+            style={this.state.show === (index + 1) ? {} : {display: 'none'}}
+            onHide={this.handleCancel}
+          >
             <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-              <Modal.Header closeButton>
-                <Modal.Title>
+              <h4 closeButton>
+                <h5>
                   <span className='modal-form-header'>ACES Inventory</span>
                   <div style={{ display: 'inline' }}><ProgressBar style={{ marginTop: '4px', height: '1.5rem' }} now={100 * (index / (Math.ceil(itemsArr.length / 10)))} srOnly /></div>
                   <br></br>
                   Questions (page {index + 1} of {Math.ceil(itemsArr.length / 10)})
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
+                </h5>
+              </h4>
+              <p>
                 <FormCheck itemsPageArr={item} updateScore={this.props.updateScore} pageNum={index} />
-              </Modal.Body>
-              <Modal.Footer>
+              </p>
+              <div>
                 <Button variant="secondary" onClick={this.props.randomScore}>
                   Random Score
                 </Button>
@@ -126,9 +130,9 @@ class ModalAssessment extends Component {
                 <Button variant="primary" type="submit">
                   Next
                 </Button>
-              </Modal.Footer>
+              </div>
             </Form>
-          </Modal>
+          </div>
         ))
         }
       </div>
