@@ -4,6 +4,9 @@ import NavigationBarInCourse from '../../Components/NavigationBarInCourse/Naviga
 import './InstitutionalSpace.css'
 // importing components
 import ModalAssessment from '../../Components/ModalAssessment/ModalAssessment';
+import Scorecard from '../../Components/Scorecard/Scorecard';
+// import CompletedGoalsContainer from '../../Components/CompletedGoals/CompletedGoalsContainer';
+// import GoalsContainer from '../../Components/Goals/GoalsContainer';
 
 // importing ACES Assessment
 import normTable from '../../ACES_Assessment/normTable.js';
@@ -15,6 +18,30 @@ class InstitutionalSpace extends Component {
   state = {
     takenAssessment: false,
     spinnerOn: false,
+    // scoreArr stores percentile scores for each scale
+    scoreArr: [],
+
+    // goalsArr stores all user data for each scale, including raw score and percentile score
+    goalsArr: [],
+
+    // answerArr stores raw scores for each item in the self-assessment
+    answerArr: [],
+
+    // strengthsArr stores percentile scores sorted by strengths, developing strengths, and growth areas
+    strengthsArr: [],
+
+    // goalsToCompleteArr stores percentile scores for each scale for which user has NOT yet completed a content unit
+    // arranged in descending order, i.e. with lowest scores at the end
+    goalsToCompleteArr: [],
+
+    // completedGoalsArr stores percentile scores for each scale for which user has ALREADY completed a content unit for
+    completedGoalsArr: [],
+
+    // goalsToDisplayArr stores a certain number of items (determined by goalsToDisplay) from goalsToCompleteArr 
+    goalsToDisplayArr: [],
+
+    // goalsToDisplay determines numbers of goals to display at a time
+    numGoalsToDisplay: 3
   }
 
   // this function will update the answerArr in state each time the user clicks on a radio button to answer an assessment question
@@ -58,6 +85,169 @@ class InstitutionalSpace extends Component {
     )
   }
 
+  // function runs raw score through norm table and returns corresponding percentile rank
+  convertToPercentile = (value, scaleIndex) => {
+    // scaleIndex determines which of the scales in the norm table should be used
+    // loops through each score for that particular scale in the norm table
+    for (var i = 0; i < normTable[scaleIndex].length; i++) {
+      const normScore = normTable[scaleIndex][i]
+      // finds normScore that is equal to passed in value, and returns it
+      if (value === parseInt(Object.keys(normScore))) {
+        console.log(Object.values(normScore))
+        return Object.values(normScore)
+      }
+    }
+  }
+
+  getGoalsArrOnSubmit = () => {
+    let goalsArr = []
+    // loop through scales array to retrieve array of index locations in the rawScoreArr for the items of that particular scale 
+    scales.forEach((scale, scaleIndex) => {
+      const scaleName = scale.name
+      // instantiate scaleSum variable which will increase as item scores are added up for that scale
+      let scaleSum = 0
+      // loop through itemIndexes array stored in each scale object 
+      scale.itemIndexes.forEach(index => {
+        // create score variable to get the particular score for the given index
+        const score = this.state.answerArr[index]
+        // add that score to the scaleSum
+        scaleSum += score
+        console.log(scaleSum)
+      })
+      // convert scale sum to percentile score
+      const percentileScore = parseInt(this.convertToPercentile(scaleSum, scaleIndex))
+
+      // create score object that holds scale name and scale sum
+      const scoreObj = { name: scaleName, rawScoreInitial: scaleSum, percentileScoreCurrent: percentileScore, isComplete: false }
+      // push it into the rawScoreArr
+      goalsArr.push(scoreObj)
+      console.log(goalsArr)
+    })
+    return goalsArr
+  }
+
+  // sort function that takes an array and will return new array with items in order from largest to smallest
+  sortValuesDescending = (arr) => {
+    arr.sort(function (a, b) {
+      return b.percentileScoreCurrent - a.percentileScoreCurrent
+    })
+    let newArr = []
+    for (let i = 0; i < arr.length; i++) {
+      newArr.push(arr[i])
+    }
+    return newArr
+  }
+
+  // function that sorts percentile array into 3 tiers: strengths, developing strengths, and growth areas.
+  sortStrengths = (arr) => {
+    // sort the percentile array into descending order so that top strengths will appear first
+    const descendingArr = this.sortValuesDescending(arr);
+
+    // instantiate an array to hold the 3 tiers of skill
+    const strengthsArr = [{ "Strengths": [] }, { "Developing_Strengths": [] }, { "Growth_Areas": [] }]
+
+    // map descending array, sorting out into 3 tiers and pushing into appropriate object in strengthsArr
+    descendingArr.forEach((element, index) => {
+      console.log(`element.percentileScoreCurrent: ${element.percentileScoreCurrent}`);
+      if (element.percentileScoreCurrent > 75) {
+        const arrCopy1 = strengthsArr[0].Strengths
+        let arr1 = []
+        arrCopy1 === undefined ? arr1 = [] : arr1 = [...arrCopy1]
+        arr1.push(element)
+        strengthsArr[0].Strengths = arr1
+      } else if (element.percentileScoreCurrent <= 75 && element.percentileScoreCurrent > 25) {
+        const arrCopy2 = strengthsArr[1].Developing_Strengths
+        let arr2 = []
+        arrCopy2 === undefined ? arr2 = [] : arr2 = [...arrCopy2]
+        arr2.push(element)
+        strengthsArr[1].Developing_Strengths = arr2
+      } else {
+        const arrCopy3 = strengthsArr[2].Growth_Areas
+        let arr3 = []
+        arrCopy3 === undefined ? arr3 = [] : arr3 = [...arrCopy3]
+        arr3.push(element)
+        strengthsArr[2].Growth_Areas = arr3
+      }
+    })
+    return strengthsArr
+  }
+
+  // function aggregates individual answers stored in answerArr into scales
+  // passed as props into ModalAssessment component where it is called when assessment is submitted
+  submitScore = (goal) => {
+
+    let goalsArr = []
+
+    if (goal) {
+      goalsArr = this.getGoalsArrOnResubmit(goal)
+    } else {
+      goalsArr = this.getGoalsArrOnSubmit();
+    }
+
+    // sort percentile array into 3 arrays: strengths, developing strengths, and growth areas
+    const strengthsArr = this.sortStrengths([...goalsArr])
+
+    // save into state
+    this.setState(state => {
+      const goalsToCompleteArr = goalsArr.filter(goal => goal.isComplete === false)
+
+      const completedGoalsArr = goalsArr.filter(goal => goal.isComplete === true)
+
+      let numGoalsToDisplay = state.numGoalsToDisplay
+      // if user has selected maximum number of goals to display, reduce by 1
+      if (parseInt(state.numGoalsToDisplay) === state.goalsToCompleteArr.length) {
+        numGoalsToDisplay--
+      }
+      return {
+        numGoalsToDisplay,
+        takenAssessment: true,
+        goalsArr,
+        strengthsArr: strengthsArr,
+        goalsToCompleteArr,
+        completedGoalsArr,
+      }
+    }
+      ,
+      () => {
+        console.log(`submitScore function successfully run`)
+        this.saveCompletedGoal(scales)
+      }
+    );
+  }
+
+  saveCompletedGoal = (score) => {
+    console.log(`saveCompletedGoal run`)
+    this.setState({ spinnerOn: true })
+    setTimeout(
+      () => {
+        this.setState(state => {
+
+          let goalsToDisplayArr = this.getGoalDisplayArr(this.sortValuesDescending([...state.goalsToCompleteArr]), state.numGoalsToDisplay)
+
+          return {
+            goalsToDisplayArr,
+            spinnerOn: false
+          }
+        }
+        )
+      }, 3000)
+  }
+
+  getGoalDisplayArr = (goalArr, numGoalsToDisplay) => {
+    const arrCopy = [...goalArr];
+    let limit = (arrCopy.length - numGoalsToDisplay) - 1
+    let newArr = [];
+    for (let i = (arrCopy.length - 1); i > limit; i--) {
+      console.log(arrCopy[i]);
+      // check to ensure value is not null before pushing into array
+      if (arrCopy[i]) {
+        newArr.push(arrCopy[i])
+      }
+    }
+    return newArr
+  }
+
+
   render() {
     console.log(this.props.courseClickChange);
     return (
@@ -90,8 +280,11 @@ class InstitutionalSpace extends Component {
               </Card>
             </Accordion.Header>
             <Accordion.Body>
-              <ModalAssessment updateScore={this.updateScore} submitScore={this.submitScore} randomScore={this.randomScore} />
-
+              {this.state.takenAssessment ?
+                <Scorecard spinnerOn={this.state.spinnerOn} strengthsArr={this.state.strengthsArr} goalsArr={this.state.goalsArr} />
+                :
+                <ModalAssessment updateScore={this.updateScore} submitScore={this.submitScore} randomScore={this.randomScore} />
+              }
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>

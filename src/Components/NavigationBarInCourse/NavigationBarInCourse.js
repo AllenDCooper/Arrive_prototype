@@ -58,14 +58,14 @@ function NavigationBarInCourse(props) {
           </Nav.Item>
           <Nav.Item style={{width: '25%'}}>
             <Nav.Link className='course-tabs' style={{ color: '#fff' }} eventKey="link-2">
-              <img alt='social' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/study-tools.svg' className='course-tab-img' />
-              <p style={{marginBottom: '0px'}}>Social</p>
+              <img alt='goals' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/study-tools.svg' className='course-tab-img' />
+              <p style={{marginBottom: '0px'}}>Goals</p>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item style={{width: '25%'}}>
             <Nav.Link className='course-tabs' style={{ color: '#fff' }} eventKey="link-2">
-              <img alt='statistics' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/statistics.svg' className='course-tab-img' />
-              <p style={{marginBottom: '0px'}}>Statistics</p>
+              <img alt='share' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/statistics.svg' className='course-tab-img' />
+              <p style={{marginBottom: '0px'}}>Share</p>
             </Nav.Link>
           </Nav.Item>
         </Nav>
