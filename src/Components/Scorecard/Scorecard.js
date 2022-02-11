@@ -23,7 +23,7 @@ class Scorecard extends Component {
             </ul>
           </p> */}
           <Card style={{border: 'none'}}>
-            <Card.Body>
+            <Card.Body style={{paddingTop: '0px'}}>
               <h5 className='strengths-header'>My Strengths</h5>
               <div style={{ margin: '20px 0px' }}>
                 {this.props.strengthsArr[0].Strengths.length === 0 ? <li>[empty]</li> : (

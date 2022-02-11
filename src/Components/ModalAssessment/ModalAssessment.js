@@ -105,22 +105,40 @@ class ModalAssessment extends Component {
         {chunkedArrays.map((item, index) => (
           <div
             size="xl" key={`key-${index}`}
-            style={this.state.show === (index + 1) ? {} : {display: 'none'}}
+            style={this.state.show === (index + 1) ? {} : { display: 'none' }}
             onHide={this.handleCancel}
           >
             <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-              <h4 closeButton>
-                <h5>
-                  <span className='modal-form-header'>ACES Inventory</span>
-                  <div style={{ display: 'inline' }}><ProgressBar style={{ marginTop: '4px', height: '1.5rem' }} now={100 * (index / (Math.ceil(itemsArr.length / 10)))} srOnly /></div>
-                  <br></br>
-                  Questions (page {index + 1} of {Math.ceil(itemsArr.length / 10)})
-                </h5>
-              </h4>
+              {/* <h4 closeButton> */}
+              <Row>
+                <Col>
+                  <h5 style={{ fontSize: '14px' }}>
+                    {/* <span className='modal-form-header'>ACES Inventory</span> */}
+                    Questions (page {index + 1} of {Math.ceil(itemsArr.length / 10)})
+                  </h5>
+                </Col>
+                <Col>
+                  <div style={{ display: 'inline' }}><ProgressBar style={{ height: '1.5rem' }} now={100 * (index / (Math.ceil(itemsArr.length / 10)))} srOnly /></div>
+                </Col>
+                {/* </h4> */}
+                <Col>
+                  <div style={{ textAlign: 'right' }}>
+                    <Button style={{ height: '1.5rem', paddingTop: '0px', paddingBottom: '0px', paddingRight: '3px', paddingLeft: '3px', marginRight: '10px', border: 'none', fontSize: '14px' }} variant="outline-dark" onClick={this.props.randomScore}>
+                      Random
+                    </Button>
+                    {/* <Button variant="light" onClick={this.handleCancel}>
+                      x
+                    </Button> */}
+                    <Button style={{ height: '1.5rem', paddingTop: '0px', paddingBottom: '0px', paddingRight: '3px', paddingLeft: '3px', marginRight: '10px', border: 'none', fontSize: '14px' }} variant="outline-dark" type="submit">
+                      <span>Next &#x3009;</span>
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
               <p>
                 <FormCheck itemsPageArr={item} updateScore={this.props.updateScore} pageNum={index} />
               </p>
-              <div>
+              {/* <div>
                 <Button variant="secondary" onClick={this.props.randomScore}>
                   Random Score
                 </Button>
@@ -130,7 +148,30 @@ class ModalAssessment extends Component {
                 <Button variant="primary" type="submit">
                   Next
                 </Button>
-              </div>
+              </div> */}
+              <Row>
+                {/* <Col>
+                  <h5 style={{ fontSize: '14px' }}>
+                    Questions (page {index + 1} of {Math.ceil(itemsArr.length / 10)})
+                  </h5>
+                </Col>
+                <Col>
+                  <div style={{ display: 'inline' }}><ProgressBar style={{ height: '1.5rem' }} now={100 * (index / (Math.ceil(itemsArr.length / 10)))} srOnly /></div>
+                </Col> */}
+                <Col>
+                  <div style={{ textAlign: 'right' }}>
+                    <Button style={{ height: '1.5rem', paddingTop: '0px', paddingBottom: '0px', paddingRight: '3px', paddingLeft: '3px', marginRight: '10px', border: 'none', fontSize: '14px' }} variant="outline-dark" onClick={this.props.randomScore}>
+                      Random
+                    </Button>
+                    {/* <Button variant="light" onClick={this.handleCancel}>
+                      x
+                    </Button> */}
+                    <Button style={{ height: '1.5rem', paddingTop: '0px', paddingBottom: '0px', paddingRight: '3px', paddingLeft: '3px', marginRight: '10px', border: 'none', fontSize: '14px' }} variant="outline-dark" type="submit">
+                      <span>Next &#x3009;</span>
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
             </Form>
           </div>
         ))

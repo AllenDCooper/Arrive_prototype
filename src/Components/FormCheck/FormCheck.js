@@ -11,9 +11,10 @@ function FormCheck(props) {
     <div>
       {props.itemsPageArr.map((item, index) => (
         <div key={`item-${(index + 1 + (10 * parseInt(props.pageNum)))}`} style={{ marginBottom: "20px" }}>
-          <h6>{`Question #${(index + 1 + (10 * parseInt(props.pageNum)))}`}</h6>
-          <h6>{item.itemText}</h6>
+          <h6 style={{fontSize: '12px'}}>{`Question #${(index + 1 + (10 * parseInt(props.pageNum)))}`}</h6>
+          <h6 style={{fontSize: '12px'}}>{item.itemText}</h6>
           <Form.Check
+            style={{ fontSize: '12px', margin: '0px' }}
             custom
             // inline
             label="Strongly Agree"
@@ -26,6 +27,7 @@ function FormCheck(props) {
             feedback="You must select an option."
           />
           <Form.Check
+            style={{ fontSize: '12px', margin: '0px' }}
             custom
             // inline
             label="Agree"
@@ -38,6 +40,7 @@ function FormCheck(props) {
             feedback="You must select an option."
           />
           <Form.Check
+            style={{ fontSize: '12px', margin: '0px' }}
             custom
             // inline
             label="Somewhat Agree"
@@ -50,6 +53,7 @@ function FormCheck(props) {
             feedback="You must select an option."
           />
           <Form.Check
+            style={{ fontSize: '12px', margin: '0px' }}
             custom
             // inline
             label="Somewhat Disagree"
@@ -62,6 +66,7 @@ function FormCheck(props) {
             feedback="You must select an option."
           />
           <Form.Check
+            style={{ fontSize: '12px', margin: '0px' }}
             custom
             // inline
             label="Disagree"
@@ -74,6 +79,7 @@ function FormCheck(props) {
             feedback="You must select an option."
           />
           <Form.Check
+            style={{ fontSize: '12px', margin: '0px' }}
             custom
             // inline
             label="Strongly Disagree"
@@ -85,7 +91,7 @@ function FormCheck(props) {
             required
             feedback="You must select an option."
           />
-          {index === 9 ? null : <hr></hr> }
+          {index === 9 ? null : <hr></hr>}
         </div>
       ))}
     </div>
