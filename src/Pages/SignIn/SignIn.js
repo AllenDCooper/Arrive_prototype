@@ -25,6 +25,7 @@ const SignIn = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    console.log(userInput)
     firebase.auth()
       .signInWithEmailAndPassword(userInput.email, userInput.password)
       .catch(function (error) {

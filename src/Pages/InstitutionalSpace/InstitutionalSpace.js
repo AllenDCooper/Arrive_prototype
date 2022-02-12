@@ -15,6 +15,7 @@ import scales from '../../ACES_Assessment/scales';
 
 // import firebase function
 import { updateUserObjInDB } from '../../firebase';
+import { database, auth } from "../../firebase";
 
 class InstitutionalSpace extends Component {
 
@@ -45,6 +46,20 @@ class InstitutionalSpace extends Component {
 
     // goalsToDisplay determines numbers of goals to display at a time
     numGoalsToDisplay: 3
+  }
+
+  componentDidMount() {
+    const userStrengths = database.ref('users/' + auth.currentUser.uid + '/strengthsArr');
+    userStrengths.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data)
+      if (data) {
+        console.log(data)
+        this.setState({
+          strengthsArr: data
+        })
+      }
+    })
   }
 
   // this function will update the answerArr in state each time the user clicks on a radio button to answer an assessment question
@@ -196,7 +211,7 @@ class InstitutionalSpace extends Component {
     //   strengthsArr: strengthsArr
     // }
 
-    const user = firebase.auth().currentUser;
+    const user = auth.currentUser;
 
     // save into state
     this.setState(state => {
@@ -294,8 +309,8 @@ class InstitutionalSpace extends Component {
               </Card>
             </Accordion.Header>
             <Accordion.Body>
-              {this.state.takenAssessment ?
-                <Scorecard spinnerOn={this.state.spinnerOn} strengthsArr={this.state.strengthsArr} goalsArr={this.state.goalsArr} />
+              {this.props.user.strengthsArr ?
+                <Scorecard spinnerOn={this.state.spinnerOn} strengthsArr={this.props.user.strengthsArr} goalsArr={this.state.goalsArr} />
                 :
                 <ModalAssessment updateScore={this.updateScore} submitScore={this.submitScore} randomScore={this.randomScore} />
               }

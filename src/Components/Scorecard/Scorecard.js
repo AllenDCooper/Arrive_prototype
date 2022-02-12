@@ -26,7 +26,7 @@ class Scorecard extends Component {
             <Card.Body style={{paddingTop: '0px'}}>
               <h5 className='strengths-header'>My Strengths</h5>
               <div style={{ margin: '20px 0px' }}>
-                {this.props.strengthsArr[0].Strengths.length === 0 ? <li>[empty]</li> : (
+                {!this.props.strengthsArr[0] ? <div style={{textAlign: 'center'}}><span>Work on your developing strengths and growth areas!</span></div> : (
                   this.props.strengthsArr[0].Strengths.map((scale, index) => (
                     // <p>{scale.name}</p>
                     <AccordionScale scale={scale} index={index} level={'high'} />

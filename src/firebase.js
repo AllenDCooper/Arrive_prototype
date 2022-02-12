@@ -60,7 +60,7 @@ export const updateUserProfile = (user, updatedUser, callback) => {
 }
 
 export const updateUserObjInDB = (userID, prop) => {
-  database.ref('users/' + user.uid).update(prop)
+  database.ref('users/' + userID).update(prop)
   .then(() => {
     console.log(`Successfully updated profile`)
   })
@@ -76,7 +76,7 @@ export const signInWithGoogle = () => {
       // The signed-in user info.
       const user = result.user;
       console.log(user)
-      updateUserProfile(user, user)
+      // updateUserProfile(user, user)
     }).catch(function (error) {
       // Handle Errors here.
       console.log(error)

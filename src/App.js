@@ -10,7 +10,7 @@ import About from './Pages/About/About'
 import NavigationBar from './Components/NavigationBar/NavigationBar'
 
 // import firebase auth
-import { auth, database } from './firebase';
+import { auth, database, updateUserObjInDB } from './firebase';
 
 // import styles
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,18 +32,28 @@ class App extends Component {
         })
       } else {
         console.log(userAuth.uid)
-        const userId = userAuth.uid
-
-        database.ref('/users/' + userId).once('value')
-          .then((snapshot) => {
-            const userProfile = snapshot.val() || userAuth;
+        database.ref('users/' + userAuth.uid).on('value', (snapshot) => {
+          const userProfile = snapshot.val()
+          if (userProfile) {
             console.log(userProfile)
             this.setState({ user: userProfile })
             //   console.log(this.state))
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+          } else {
+            console.log(userAuth)
+            // create profile if signing up for first time
+            const newUserObj = {
+              displayName: userAuth.displayName,
+              email: userAuth.email,
+              photoURL: userAuth.photoURL || null,
+            }
+            updateUserObjInDB(userAuth.uid, newUserObj)
+            this.setState({ user: userAuth })
+            //   console.log(this.state))
+          }
+        })
+        // .catch(function (error) {
+        //   console.log(error)
+        // })
       }
     })
   }
