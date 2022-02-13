@@ -41,7 +41,9 @@ class Connect extends Component {
     userMessages.on('value', (snapshot) => {
       const data = snapshot.val();
       console.log(data);
-      if(data) {
+      const allMessagesArr = Object.entries(data)
+
+      if (data) {
         console.log(data);
         this.setState({
           messageArr: Object.entries(data)
@@ -88,7 +90,7 @@ class Connect extends Component {
     return (
       <div>
         <div>
-          <MessageContainer messageArr={this.state.messageArr} />
+          <MessageContainer messageArr={this.state.messageArr} user={this.props.user} />
           {/* {messages.map(message => <Message key={message.id} {...message} />)} */}
           <div ref={this.messagesEndRef} />
         </div>

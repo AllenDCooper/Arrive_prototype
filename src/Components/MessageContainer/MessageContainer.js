@@ -16,7 +16,7 @@ const MessageContainer = (props) => {
     <div>
       <ToastContainer style={{ width: '100%' }}>
         {props.messageArr.map(message => (
-          <ToastMessage message={message}/>
+          <ToastMessage message={message} user={props.user}/>
         ))}
       </ToastContainer>
     </div>

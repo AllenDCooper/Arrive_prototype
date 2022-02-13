@@ -133,6 +133,26 @@ export const pushMessageIntoChannel = (uid, displayName, messageStr) => {
     });
 }
 
+export const hideMessageInChannel = (user, messageID, hideBool) => {
+  console.log(user);
+  const uid = user.uid
+  if (hideBool) {
+    database.ref('channel/' + messageID).update(
+      {
+        hide: {
+          [uid]: user
+        }
+      }
+    )
+      .then(() => {
+        console.log(`Successfully updated message`)
+      })
+      .catch(function (error) {
+        console.log(`Error updating message:`, error)
+      });
+  }
+}
+
 export const deleteMessageFromUser = (uid, messageID) => {
   database.ref('users/' + uid + '/messages/' + messageID).remove().then(() => {
     console.log(`Successfully deleted message`)
