@@ -137,19 +137,21 @@ export const hideMessageInChannel = (user, messageID, hideBool) => {
   console.log(user);
   const uid = user.uid
   if (hideBool) {
-    database.ref('channel/' + messageID).update(
-      {
-        hide: {
-          [uid]: user
-        }
-      }
-    )
-      .then(() => {
-        console.log(`Successfully updated message`)
-      })
-      .catch(function (error) {
-        console.log(`Error updating message:`, error)
-      });
+    database.ref('channel/' + messageID + '/hide').once('value', (snapshot) => {
+      console.log(snapshot.val());
+      var hide = snapshot.val()
+      var newPair = { [uid]: user };
+      hide = { ...hide, ...newPair }
+      database.ref('channel/' + messageID).update({ hide })
+        .then(() => {
+          console.log(`Successfully updated message`)
+        })
+        .catch(function (error) {
+          console.log(`Error updating message:`, error)
+        });
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 }
 
