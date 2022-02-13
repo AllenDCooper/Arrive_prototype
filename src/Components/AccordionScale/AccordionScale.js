@@ -5,7 +5,7 @@ import resources from '../../ACES_Assessment/resources';
 function AccordionScale(props) {
 
   const resourceObj = resources[props.scale.name][props.level];
-  console.log(resourceObj);
+  // console.log(resourceObj);
 
   const styles = {
     scaleTitle: {

@@ -9,6 +9,28 @@ import "./NavigationBarInCourse.css"
 function NavigationBarInCourse(props) {
   console.log(props)
 
+  const handleClick = (targetName) => {
+    event.preventDefault();
+    console.log('clicked');
+    console.log(targetName)
+    props.changeTab(targetName);
+    console.log(props.tabSelected);
+  }
+
+  const styles = {
+    selectedMenuLink: {
+      color: 'white',
+      fontWeight: 'bold',
+      textDecoration: 'none',
+      borderBottom: '2px solid white'
+    },
+    menuLink: {
+      color: 'white',
+      fontWeight: '300',
+    }
+  }
+
+
   return (
     // <Navbar collapseOnSelect expand="lg"
     // // bg="dark" variant="dark"
@@ -42,30 +64,30 @@ function NavigationBarInCourse(props) {
           </Row>
         </Container>
       </Navbar>
-      <Navbar style={{ position: 'relative', borderRadius: '0px', backgroundColor: "#064d9e", color: '#fff', height: '60px'}} className="justify-content-center" >
-        <Nav style={{ position: 'absolute', bottom: '3px', minWidth: '300px' }} className="justify-content-center" activeKey="">
-          <Nav.Item style={{width: '25%'}}>
-            <Nav.Link className='course-tabs' style={{ color: '#fff' }} eventKey="link-1">
-            <img alt='activities' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/course-history.svg' className='course-tab-img'/>
-              <p style={{marginBottom: '0px'}}>Activities</p>
-              </Nav.Link>
-          </Nav.Item>
-          <Nav.Item style={{width: '25%'}}>
-            <Nav.Link className='course-tabs' style={{ color: '#fff' }} eventKey="link-2">
-              <img alt='resources' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/assignments.svg' className='course-tab-img' />
-              <p style={{marginBottom: '0px'}}>Resources</p>
+      <Navbar style={{ position: 'relative', borderRadius: '0px', backgroundColor: "#064d9e", color: '#fff', height: '60px' }} className="justify-content-center" >
+        <Nav style={{ position: 'absolute', bottom: '0px', minWidth: '300px' }} className="justify-content-center" activeKey="">
+          <Nav.Item name='connect' style={{ width: '25%' }}>
+            <Nav.Link name='connect' className='course-tabs' style={props.tabSelected === 'connect' ? styles.selectedMenuLink : styles.menuLink} onClick={() => handleClick('connect')}>
+              <img name='connect' alt='share' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/statistics.svg' className='course-tab-img' />
+              <p name='connect' style={{ marginBottom: '0px' }}>Connect</p>
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item style={{width: '25%'}}>
-            <Nav.Link className='course-tabs' style={{ color: '#fff' }} eventKey="link-2">
-              <img alt='goals' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/study-tools.svg' className='course-tab-img' />
-              <p style={{marginBottom: '0px'}}>Goals</p>
+          <Nav.Item style={{ width: '25%' }}>
+            <Nav.Link name='activities' className='course-tabs' style={props.tabSelected === 'activities' ? styles.selectedMenuLink : styles.menuLink} onClick={() => handleClick('activities')} >
+              <img name='activities' alt='activities' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/course-history.svg' className='course-tab-img' />
+              <p name='activities' style={{ marginBottom: '0px' }}>Activities</p>
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item style={{width: '25%'}}>
-            <Nav.Link className='course-tabs' style={{ color: '#fff' }} eventKey="link-2">
-              <img alt='share' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/statistics.svg' className='course-tab-img' />
-              <p style={{marginBottom: '0px'}}>Share</p>
+          <Nav.Item style={{ width: '25%' }}>
+            <Nav.Link name='goals' className='course-tabs' style={props.tabSelected === 'goals' ? styles.selectedMenuLink : styles.menuLink} onClick={() => handleClick('goals')} >
+              <img name='goals' alt='goals' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/study-tools.svg' className='course-tab-img' />
+              <p name='goals' style={{ marginBottom: '0px' }}>Goals</p>
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item style={{ width: '25%' }}>
+            <Nav.Link name='resources' className='course-tabs' style={props.tabSelected === 'resources' ? styles.selectedMenuLink : styles.menuLink} onClick={() => handleClick('resources')} >
+              <img name='resources' alt='resources' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/assignments.svg' className='course-tab-img' />
+              <p name='resources' style={{ marginBottom: '0px' }}>Resources</p>
             </Nav.Link>
           </Nav.Item>
         </Nav>
