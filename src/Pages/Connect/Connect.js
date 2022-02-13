@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 import NavigationBarInCourse from '../../Components/NavigationBarInCourse/NavigationBarInCourse';
 import MessageContainer from '../../Components/MessageContainer/MessageContainer';
-import { database, getAllFirebaseUserIDs, pushMessageObjInDB, auth } from '../../firebase';
+import { database, getAllFirebaseUserIDs, pushMessageObjInDB, auth, pushMessageIntoChannel } from '../../firebase';
 
 class Connect extends Component {
   constructor(props) {
@@ -25,12 +25,24 @@ class Connect extends Component {
     //   console.log(this.state.allUsers)
     // })
 
-    const userMessages = database.ref('users/' + auth.currentUser.uid + '/messages');
+    // const userMessages = database.ref('users/' + auth.currentUser.uid + '/messages');
+    // userMessages.on('value', (snapshot) => {
+    //   const data = snapshot.val();
+    //   console.log(data)
+    //   if (data) {
+    //     console.log(data)
+    //     this.setState({
+    //       messageArr: Object.entries(data)
+    //     })
+    //   }
+    // })
+
+    const userMessages = database.ref('channel/')
     userMessages.on('value', (snapshot) => {
       const data = snapshot.val();
-      console.log(data)
-      if (data) {
-        console.log(data)
+      console.log(data);
+      if(data) {
+        console.log(data);
         this.setState({
           messageArr: Object.entries(data)
         })
@@ -64,7 +76,8 @@ class Connect extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.props.user);
-    pushMessageObjInDB(this.props.user.uid, this.props.user.displayName, this.state.messageStr)
+    // pushMessageObjInDB(this.props.user.uid, this.props.user.displayName, this.state.messageStr)
+    pushMessageIntoChannel(this.props.user.uid, this.props.user.displayName, this.state.messageStr)
     this.setState({
       messageStr: ''
     })

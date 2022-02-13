@@ -118,6 +118,21 @@ export const pushMessageObjInDB = (uid, displayName, message) => {
   })
 }
 
+export const pushMessageIntoChannel = (uid, displayName, messageStr) => {
+  const newMessageObj = {
+    uid: uid,
+    displayName: displayName,
+    message: messageStr,
+    time: new Date()
+  }
+  database.ref('channel/').push(newMessageObj).then(() => {
+    console.log(`Successfully added message`)
+  })
+    .catch(function (error) {
+      console.log(`Error adding message:`, error)
+    });
+}
+
 export const deleteMessageFromUser = (uid, messageID) => {
   database.ref('users/' + uid + '/messages/' + messageID).remove().then(() => {
     console.log(`Successfully deleted message`)
