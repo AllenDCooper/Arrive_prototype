@@ -43,10 +43,11 @@ export const updateUserProfile = (user, updatedUser, callback) => {
         goal: updatedUser.goal || null,
         strengthsArr: updatedUser.strengthsArr || null
       }
-      if (updatedUser.phoneNumber) {newUserObj.phoneNumber = updatedUser.phoneNumber}
+      if (updatedUser.phoneNumber) { newUserObj.phoneNumber = updatedUser.phoneNumber }
       console.log(callback)
-      if(callback) {
-        callback(newUserObj)}
+      if (callback) {
+        callback(newUserObj)
+      }
       console.log(newUserObj)
       // creates or updates Realtime database profile
       database.ref('users/' + user.uid).update(newUserObj)
@@ -61,12 +62,69 @@ export const updateUserProfile = (user, updatedUser, callback) => {
 
 export const updateUserObjInDB = (userID, prop) => {
   database.ref('users/' + userID).update(prop)
-  .then(() => {
-    console.log(`Successfully updated profile`)
+    .then(() => {
+      console.log(`Successfully updated profile`)
+    })
+    .catch(function (error) {
+      console.log(`Error updating user profile:`, error)
+    });
+}
+
+// export const pushMessageObjInDB = (uid, displayName, message, recipientUidArr) => {
+//   recipientUidArr.forEach((recipientUid) => {
+//     const newMessageObj = {
+//       newTime: {
+//         uid: uid,
+//         displayName: displayName,
+//         message: message,
+//         time: new Date()
+//       }
+//     }
+//     database.ref('users/' + recipientUid + '/messages/').push(newMessageObj).then(() => {
+//       console.log(`Successfully added message`)
+//     })
+//       .catch(function (error) {
+//         console.log(`Error adding message:`, error)
+//       });
+//   })
+// }
+
+export const pushMessageObjInDB = (uid, displayName, message) => {
+  console.log('getAllFirebaseUserIDs run')
+  var allUsers = database.ref('/users');
+  allUsers.once('value', (snapshot) => {
+    const data = snapshot.val();
+    // }).then((data) => {
+    console.log(data)
+    const allUsersArr = Object.keys(data)
+    console.log(allUsersArr);
+    allUsersArr.forEach((recipientUid) => {
+      console.log(recipientUid)
+      let newMessageObj = {
+        uid: uid,
+        displayName: displayName,
+        message: message,
+        time: new Date()
+      }
+      console.log(newMessageObj);
+      database.ref('users/' + recipientUid + '/messages/').push(newMessageObj).then(() => {
+        console.log(`Successfully added message`)
+      })
+        .catch(function (error) {
+          console.log(`Error adding message:`, error)
+        });
+    })
+
   })
-  .catch(function (error) {
-    console.log(`Error updating user profile:`, error)
-  });
+}
+
+export const deleteMessageFromUser = (uid, messageID) => {
+  database.ref('users/' + uid + '/messages/' + messageID).remove().then(() => {
+    console.log(`Successfully deleted message`)
+  })
+    .catch(function (error) {
+      console.log(`Error deleting message:`, error)
+    });
 }
 
 export const signInWithGoogle = () => {

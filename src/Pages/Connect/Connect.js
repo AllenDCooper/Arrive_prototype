@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Form, Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 import NavigationBarInCourse from '../../Components/NavigationBarInCourse/NavigationBarInCourse';
+import MessageContainer from '../../Components/MessageContainer/MessageContainer';
+import { database, getAllFirebaseUserIDs, pushMessageObjInDB, auth } from '../../firebase';
 
 class Connect extends Component {
   constructor(props) {
@@ -9,12 +11,32 @@ class Connect extends Component {
   }
 
   state = {
-    messageArr: ['new message']
+    messageArr: [],
+    messageStr: '',
+    allUsers: []
   }
 
   componentDidMount() {
     this.scrollToBottom()
-    setInterval(this.addMessages, 1000)
+    // setInterval(this.addMessages, 1000)
+    // this.setState({
+    //   allUsers: getAllFirebaseUserIDs()
+    // }, () => {
+    //   console.log(this.state.allUsers)
+    // })
+
+    const userMessages = database.ref('users/' + auth.currentUser.uid + '/messages');
+    userMessages.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data)
+      if (data) {
+        console.log(data)
+        this.setState({
+          messageArr: Object.entries(data)
+        })
+      }
+    })
+
   }
 
   componentDidUpdate() {
@@ -31,27 +53,42 @@ class Connect extends Component {
     console.log(this.state.messageArr)
   }
 
+  handleChange = (event) => {
+    this.setState({
+      messageStr: event.target.value
+    }, () => {
+      console.log(this.state.messageStr)
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.props.user);
+    pushMessageObjInDB(this.props.user.uid, this.props.user.displayName, this.state.messageStr)
+    this.setState({
+      messageStr: ''
+    })
+  }
+
   render() {
     // const { messages } = this.props
     return (
       <div>
         <div>
-          {this.state.messageArr.map(message => (
-            <div>message</div>
-          ))}
+          <MessageContainer messageArr={this.state.messageArr} />
           {/* {messages.map(message => <Message key={message.id} {...message} />)} */}
           <div ref={this.messagesEndRef} />
         </div>
-        <div style={{height: '150px'}}></div>
-        <Form style={{backgroundColor: 'white', position: 'fixed', bottom: '0px', width: '768px', maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto'}}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" style={{marginBottom: '5px'}}>
+        <div style={{ height: '150px' }}></div>
+        <Form onSubmit={this.handleSubmit} style={{ backgroundColor: 'white', position: 'fixed', bottom: '0px', width: '768px', maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" style={{ marginBottom: '5px' }}>
             {/* <Form.Label>Add message</Form.Label> */}
-            <Form.Control as="textarea" rows={3} placeholder="Add your thoughts/feelings here..." />
+            <Form.Control as="textarea" rows={3} value={this.state.messageStr} onChange={this.handleChange} placeholder="Add your thoughts/feelings here..." />
           </Form.Group>
-          <div style={{textAlign: 'right'}}>
-          <Button variant="primary" type="submit" style={{marginBottom: '10px'}}>
-            Share
-          </Button>
+          <div style={{ textAlign: 'right' }}>
+            <Button variant="primary" type="submit" style={{ marginBottom: '10px' }}>
+              Share
+            </Button>
           </div>
         </Form>
       </div >

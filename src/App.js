@@ -35,7 +35,8 @@ class App extends Component {
         database.ref('users/' + userAuth.uid).on('value', (snapshot) => {
           const userProfile = snapshot.val()
           if (userProfile) {
-            console.log(userProfile)
+            console.log(userProfile);
+            userProfile.uid = userAuth.uid;
             this.setState({ user: userProfile })
             //   console.log(this.state))
           } else {
