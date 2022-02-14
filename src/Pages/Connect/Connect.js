@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Accordion, Card, Container, Row, Col } from 'react-bootstrap';
+import { Dropdown, Button, Form, Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 import NavigationBarInCourse from '../../Components/NavigationBarInCourse/NavigationBarInCourse';
 import MessageContainer from '../../Components/MessageContainer/MessageContainer';
 import { database, getAllFirebaseUserIDs, pushMessageObjInDB, auth, pushMessageIntoChannel } from '../../firebase';
@@ -101,6 +101,17 @@ class Connect extends Component {
             <Form.Control as="textarea" rows={3} value={this.state.messageStr} onChange={this.handleChange} placeholder="Add your thoughts/feelings here..." />
           </Form.Group>
           <div style={{ textAlign: 'right' }}>
+            <Dropdown>
+              <Dropdown.Toggle variant="light" id="dropdown-basic">
+                All
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Group 1</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Group 2</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Group 3</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
             <Button variant="primary" type="submit" style={{ marginBottom: '10px' }}>
               Share
             </Button>

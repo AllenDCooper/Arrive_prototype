@@ -70,6 +70,50 @@ export const updateUserObjInDB = (userID, prop) => {
     });
 }
 
+export const pushGroupIntoDb = (groupObj) => {
+  database.ref('groups/').push(groupObj)
+    .then(() => {
+      console.log(`Successfully added group`)
+    })
+    .catch(function (error) {
+      console.log(`Error adding group:`, error)
+    });
+}
+
+export const subscribeToGroup = (uid, groupId, user) => {
+  console.log(user)
+  console.log(groupId)
+  //first get subscription object
+  database.ref('groups/' + groupId).once('value', (snapshot) => {
+    console.log(snapshot.val().subscribed);
+    var subscribed = snapshot.val().subscribed;
+    var newPair = { [uid]: user };
+    // combine it with new user subscribing
+    subscribed = { ...subscribed, ...newPair }
+    console.log(subscribed);
+
+    // then push it back into group object in DB
+    database.ref('groups/' + groupId).update({ subscribed })
+      .then(() => {
+        console.log('successfully subscribed to group')
+      })
+      .catch(function (error) {
+        console.log(`Error subscribing to group:`, error)
+      })
+  })
+}
+
+export const unsubscribeToGroup = (uid, groupId) => {
+  console.log(uid);
+  console.log(groupId)
+  database.ref('groups/' + groupId + '/subscribed/' + uid).remove().then(() => {
+    console.log('successfully unsubscribed to group')
+  })
+    .catch(function (error) {
+      console.log(`Error unsubscribing to group:`, error)
+    })
+}
+
 // export const pushMessageObjInDB = (uid, displayName, message, recipientUidArr) => {
 //   recipientUidArr.forEach((recipientUid) => {
 //     const newMessageObj = {

@@ -10,7 +10,7 @@ class Scorecard extends Component {
     console.log(this.props.spinnerOn)
 
     return (
-      <div style={{fontSize: '12px'}}>
+      <div style={{ fontSize: '12px' }}>
         {/* <h4 className='tab-title'>
           My Strengths Report
         </h4>
@@ -22,37 +22,37 @@ class Scorecard extends Component {
               <li>Growth areas are key opportunities to develop new Strengths.</li>
             </ul>
           </p> */}
-          <Card style={{border: 'none'}}>
-            <Card.Body style={{paddingTop: '0px'}}>
-              <h5 className='strengths-header'>My Strengths</h5>
-              <div style={{ margin: '20px 0px' }}>
-                {!this.props.strengthsArr[0] ? <div style={{textAlign: 'center'}}><span>Work on your developing strengths and growth areas!</span></div> : (
-                  this.props.strengthsArr[0].Strengths.map((scale, index) => (
-                    // <p>{scale.name}</p>
-                    <AccordionScale scale={scale} index={index} level={'high'} />
-                  ))
-                )}
-              </div>
-              <h5 className='strengths-header'>My Developing Strengths</h5>
-              <div style={{ margin: '20px 0px' }}>
-                {this.props.strengthsArr[1].Developing_Strengths.length === 0 ? <li>[empty]</li> : (
-                  this.props.strengthsArr[1].Developing_Strengths.map((scale, index) => (
-                    // <p>{scale.name}</p>
-                    <AccordionScale scale={scale} index={index} level={'moderate'} />
-                  ))
-                )}
-              </div>
-              <h5 className='strengths-header'>My Growth Areas</h5>
-              <div style={{ margin: '20px 0px' }}>
-                {this.props.strengthsArr[2].Growth_Areas.length === 0 ? <li>[empty]</li> : (
-                  this.props.strengthsArr[2].Growth_Areas.map((scale, index) => (
-                    // <p>{scale.name}</p>
-                    <AccordionScale scale={scale} index={index} level={'low'} />
-                  ))
-                )}
-              </div>
-            </Card.Body>
-          </Card>
+        <Card style={{ border: 'none' }}>
+          <Card.Body style={{ paddingTop: '0px' }}>
+            <h5 className='strengths-header'>My Strengths</h5>
+            <div style={{ margin: '20px 0px' }}>
+              {!this.props.strengthsArr[0] ? <div style={{ textAlign: 'center' }}><span>Work on your developing strengths and growth areas!</span></div> : (
+                this.props.strengthsArr[0].Strengths.map((scale, index) => (
+                  // <p>{scale.name}</p>
+                  <AccordionScale scale={scale} index={index} level={'high'} />
+                ))
+              )}
+            </div>
+            <h5 className='strengths-header'>My Developing Strengths</h5>
+            <div style={{ margin: '20px 0px' }}>
+              {!this.props.strengthsArr[1] ? <div style={{ textAlign: 'center' }}><span>Work on your strengths and growth areas!</span></div> : (
+                this.props.strengthsArr[1].Developing_Strengths.map((scale, index) => (
+                  // <p>{scale.name}</p>
+                  <AccordionScale scale={scale} index={index} level={'moderate'} />
+                ))
+              )}
+            </div>
+            <h5 className='strengths-header'>My Growth Areas</h5>
+            <div style={{ margin: '20px 0px' }}>
+              {!this.props.strengthsArr[2] ? <div style={{ textAlign: 'center' }}><span>Work on your strengths and developing strengths!</span></div> : (
+                this.props.strengthsArr[2].Growth_Areas.map((scale, index) => (
+                  // <p>{scale.name}</p>
+                  <AccordionScale scale={scale} index={index} level={'low'} />
+                ))
+              )}
+            </div>
+          </Card.Body>
+        </Card>
       </div >
     )
   }
