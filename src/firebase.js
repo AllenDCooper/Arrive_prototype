@@ -41,7 +41,11 @@ export const updateUserProfile = (user, updatedUser, callback) => {
         photoURL: updatedUser.photoURL || null,
         // testing goal
         goal: updatedUser.goal || null,
-        strengthsArr: updatedUser.strengthsArr || null
+        strengthsArr: updatedUser.strengthsArr || null,
+        goalsArr: updatedUser.goalsArr || null,
+        goalsToCompleteArr: updatedUser.goalsToCompleteArr || null,
+        goalsToDisplayArr: updatedUser.goalsToDisplayArr || null,
+        topGoalAreas: updatedUser.topGoalAreas || null
       }
       if (updatedUser.phoneNumber) { newUserObj.phoneNumber = updatedUser.phoneNumber }
       console.log(callback)

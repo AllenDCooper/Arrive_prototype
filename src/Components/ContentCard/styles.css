@@ -1,0 +1,54 @@
+.cursor {
+  animation: 1s blink step-end infinite
+}
+
+@keyframes
+  blink {
+    from,to {
+      color: transparent
+    }
+    50% {
+      color:#000
+    }
+  }
+
+@-moz-keyframes 
+  blink {
+    from,to {
+      color: transparent
+    }
+    50% {
+      color:#000
+    }
+  }
+
+@-webkit-keyframes 
+  blink {
+    from,to {
+      color:transparent
+    }
+    50% {
+      color:#000}
+    }
+
+@-ms-keyframes
+  blink {
+    from,to {
+      color:transparent
+    }
+    50% {
+      color:#000}
+    }
+    
+@-o-keyframes
+  blink {
+    from,to {
+      color:transparent
+  } 50% {
+    color:#000
+  }
+}
+
+.unit-folder {
+  border-top: 1px solid lightgray;
+}

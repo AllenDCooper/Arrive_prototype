@@ -6,7 +6,7 @@ import './Activities.css'
 import ModalAssessment from '../../Components/ModalAssessment/ModalAssessment';
 import Scorecard from '../../Components/Scorecard/Scorecard';
 // import CompletedGoalsContainer from '../../Components/CompletedGoals/CompletedGoalsContainer';
-// import GoalsContainer from '../../Components/Goals/GoalsContainer';
+import GoalsContainer from '../../Components/GoalsContainer/GoalsContainer';
 
 // importing ACES Assessment
 import normTable from '../../ACES_Assessment/normTable.js';
@@ -39,7 +39,7 @@ class Activities extends Component {
     goalsToCompleteArr: [],
 
     // completedGoalsArr stores percentile scores for each scale for which user has ALREADY completed a content unit for
-    completedGoalsArr: [],
+    // completedGoalsArr: [],
 
     // goalsToDisplayArr stores a certain number of items (determined by goalsToDisplay) from goalsToCompleteArr 
     goalsToDisplayArr: [],
@@ -196,8 +196,6 @@ class Activities extends Component {
     return strengthsArr
   }
 
-  update
-
   // function aggregates individual answers stored in answerArr into scales
   // passed as props into ModalAssessment component where it is called when assessment is submitted
   submitScore = (goal) => {
@@ -243,7 +241,11 @@ class Activities extends Component {
       () => {
         console.log(`submitScore function successfully run`)
         updateUserObjInDB(user.uid, {
-          strengthsArr: strengthsArr
+          strengthsArr: strengthsArr, 
+          goalsToCompleteArr: this.state.goalsToCompleteArr,
+          goalsArr: this.state.goalsArr,
+          takenAssessment: this.state.takenAssessment,
+          goalsToDisplayArr: this.state.goalsToDisplayArr
         })
         this.saveCompletedGoal(scales)
       }
@@ -279,6 +281,9 @@ class Activities extends Component {
         newArr.push(arrCopy[i])
       }
     }
+    updateUserObjInDB(auth.currentUser.uid, {
+      topGoalAreas: newArr
+    })
     return newArr
   }
 

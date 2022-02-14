@@ -5,6 +5,7 @@ import './InstitutionalSpace.css'
 
 import Activities from '../../Components/Activities/Activities'
 import Connect from '../../Pages/Connect/Connect';
+import GoalsContainer from '../../Components/GoalsContainer/GoalsContainer';
 
 // import firebase function
 import { updateUserObjInDB } from '../../firebase';
@@ -15,6 +16,25 @@ class InstitutionalSpace extends Component {
   state = {
     tabSelected: 'connect',
     spinnerOn: false,
+  }
+
+  componentDidMount() {
+    this.getGoalListFromDB
+
+  }
+
+  getGoalListFromDB = (uid) => {
+    database.ref('users/' + userID).on('value', (snapshot) => {
+      console.log(data);
+  
+      if (data) {
+        console.log(data);
+        this.setState({
+          strengthsToCompleteArr: data
+        })
+      }
+    })
+  
   }
 
   changeTab = (clickedTab) => {
@@ -37,13 +57,19 @@ class InstitutionalSpace extends Component {
         <div 
         style={this.state.tabSelected === "activities" ?
         { display: 'initial'} : { display: 'none'}}>
-          <Activities courseClickChange={this.props.courseClickChange} updateUserInState={this.props.updateUserInState} user={this.props.user}/>
+          <Activities courseClickChange={this.props.courseClickChange} updateUserInState={this.props.updateUserInState} user={this.props.user} />
         </div>
 
         <div 
         style={this.state.tabSelected === "connect" ?
         { display: 'initial'} : { display: 'none'}}>
           <Connect user={this.props.user}/>
+        </div>
+
+        <div 
+        style={this.state.tabSelected === "goals" ?
+        { display: 'initial'} : { display: 'none'}}>
+          <GoalsContainer user={this.props.user} strengthsToCompleteArr={this.state.strengthsToCompleteArr}/>
         </div>
 
       </div>
