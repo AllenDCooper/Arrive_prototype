@@ -94,27 +94,33 @@ class Connect extends Component {
           {/* {messages.map(message => <Message key={message.id} {...message} />)} */}
           <div ref={this.messagesEndRef} />
         </div>
-        <div style={{ height: '150px' }}></div>
+        <div style={{ height: '160px' }}></div>
         <Form onSubmit={this.handleSubmit} style={{ backgroundColor: 'white', position: 'fixed', bottom: '0px', width: '768px', maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" style={{ marginBottom: '5px' }}>
             {/* <Form.Label>Add message</Form.Label> */}
             <Form.Control as="textarea" rows={3} value={this.state.messageStr} onChange={this.handleChange} placeholder="Add your thoughts/feelings here..." />
           </Form.Group>
           <div style={{ textAlign: 'right' }}>
-            <Dropdown>
-              <Dropdown.Toggle variant="light" id="dropdown-basic">
-                All
-              </Dropdown.Toggle>
+            <Row>
+              <Col>
+                <Dropdown>
+                  <Dropdown.Toggle variant="light" id="dropdown-basic" style={{width: '100%'}}>
+                    All
+                  </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Group 1</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Group 2</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Group 3</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Button variant="primary" type="submit" style={{ marginBottom: '10px' }}>
-              Share
-            </Button>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Group 1</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Group 2</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Group 3</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Col>
+              <Col>
+                <Button variant="primary" type="submit" style={{ marginBottom: '10px', width: '100%' }}>
+                  Share
+                </Button>
+              </Col>
+            </Row>
           </div>
         </Form>
       </div >

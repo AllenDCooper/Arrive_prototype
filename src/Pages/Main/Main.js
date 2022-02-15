@@ -176,8 +176,8 @@ class Connect extends Component {
                 <div>
                   <div ref={this.messagesEndRef} />
                 </div>
-                <div style={{ height: '150px' }}></div>
-                <Form onSubmit={this.handleSubmit} style={{ backgroundColor: 'white', position: 'fixed', bottom: '0px', width: '768px', maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
+                <div style={{ height: '255px' }}></div>
+                <Form onSubmit={this.handleSubmit} style={{ backgroundColor: 'white', position: 'fixed', bottom: '0px', width: '768px', maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto', boxShadow: '0 0 3px grey' }}>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" style={{ marginBottom: '0px' }}>
                     {/* <Form.Label>Add message</Form.Label> */}
                     <FloatingLabel
