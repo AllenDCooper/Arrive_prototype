@@ -166,11 +166,33 @@ export const pushMessageObjInDB = (uid, displayName, message) => {
   })
 }
 
-export const pushMessageIntoChannel = (uid, displayName, messageStr) => {
+export const groupLookup = (groupId) => {
+  console.log(groupId)
+  let groupName = ''
+  if (!groupId || groupId === 'All' ) {
+    groupName = ('All')
+  } else {
+    database.ref('groups/' + groupId).once('value', (snapshot) => {
+      console.log(snapshot.val().groupName);
+      groupName = snapshot.val().groupName
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+  console.log(groupName)
+  return groupName
+}
+
+export const pushMessageIntoChannel = (uid, displayName, messageStr, groupId) => {
+  console.log(uid);
+  console.log(displayName);
+  console.log(messageStr);
+  console.log(groupId);
   const newMessageObj = {
     uid: uid,
     displayName: displayName,
     message: messageStr,
+    groupId: groupId,
     time: new Date()
   }
   database.ref('channel/').push(newMessageObj).then(() => {

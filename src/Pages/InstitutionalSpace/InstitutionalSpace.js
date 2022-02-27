@@ -63,7 +63,7 @@ class InstitutionalSpace extends Component {
         <div 
         style={this.state.tabSelected === "connect" ?
         { display: 'initial'} : { display: 'none'}}>
-          <Connect user={this.props.user}/>
+          <Connect user={this.props.user} groupArr={this.props.groupArr} />
         </div>
 
         <div 

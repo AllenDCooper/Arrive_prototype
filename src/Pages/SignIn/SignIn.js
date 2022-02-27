@@ -27,7 +27,7 @@ const SignIn = (props) => {
     event.preventDefault()
     console.log(userInput)
     firebase.auth()
-      .signInWithEmailAndPassword(userInput.email, userInput.password)
+      .signInWithEmailAndPassword(userInput.email.toString(), userInput.password.toString())
       .catch(function (error) {
         setUserInput({ ...userInput, error: 'Incorrect username or password. Please try again.' })
       });

@@ -9,6 +9,8 @@ import AccordionGoal from '../AccordionGoal/AccordionGoal';
 class GoalsContainer extends Component {
 
   render() {
+    console.log('goals container rendered')
+    console.log(this.props.user.topGoalAreas)
     return (
       <div>
         {this.props.user.topGoalAreas ?

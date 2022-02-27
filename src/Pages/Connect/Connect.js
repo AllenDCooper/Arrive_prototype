@@ -13,7 +13,8 @@ class Connect extends Component {
   state = {
     messageArr: [],
     messageStr: '',
-    allUsers: []
+    allUsers: [],
+    groupSelect: ['All', {groupName: 'All'}]
   }
 
   componentDidMount() {
@@ -79,9 +80,16 @@ class Connect extends Component {
     event.preventDefault();
     console.log(this.props.user);
     // pushMessageObjInDB(this.props.user.uid, this.props.user.displayName, this.state.messageStr)
-    pushMessageIntoChannel(this.props.user.uid, this.props.user.displayName, this.state.messageStr)
+    pushMessageIntoChannel(this.props.user.uid, this.props.user.displayName, this.state.messageStr, this.state.groupSelect[0])
     this.setState({
       messageStr: ''
+    })
+  }
+
+  handleGroupSelectChange = (groupObj) => {
+    console.log(groupObj)
+    this.setState({
+      groupSelect: groupObj,
     })
   }
 
@@ -90,7 +98,7 @@ class Connect extends Component {
     return (
       <div>
         <div>
-          <MessageContainer messageArr={this.state.messageArr} user={this.props.user} />
+          <MessageContainer messageArr={this.state.messageArr} user={this.props.user} groupSelect={this.state.groupSelect}/>
           {/* {messages.map(message => <Message key={message.id} {...message} />)} */}
           <div ref={this.messagesEndRef} />
         </div>
@@ -103,15 +111,26 @@ class Connect extends Component {
           <div style={{ textAlign: 'right' }}>
             <Row>
               <Col>
-                <Dropdown>
-                  <Dropdown.Toggle variant="light" id="dropdown-basic" style={{width: '100%'}}>
-                    All
+                <Dropdown
+                // value={this.state.groupSelect}
+                // onSelect={this.handleGroupSelectChange}
+                >
+                  <Dropdown.Toggle variant="light" id="dropdown-basic" style={{ width: '100%' }}>
+                    {this.state.groupSelect[1].groupName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Group 1</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Group 2</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Group 3</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.handleGroupSelectChange(['All', {groupName: 'All'}])}>All</Dropdown.Item>
+
+                    {this.props.groupArr.map(group => (
+                      group[1].subscribed ?
+                        group[1].subscribed[this.props.user.uid] ?
+                          <Dropdown.Item onClick={() => this.handleGroupSelectChange(group)}>{group[1].groupName}</Dropdown.Item>
+                          :
+                          null
+                        :
+                        null
+                    ))}
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>

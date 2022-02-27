@@ -28,6 +28,7 @@ class AccordionGoal extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
 
       <Accordion>
@@ -57,10 +58,10 @@ class AccordionGoal extends Component {
           <Accordion.Body>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Text className="text-muted">
-                      This is my personalized and SMART version of this goal:
-                    </Form.Text>
-                    <Form.Control value={this.state.messageStr} onChange={this.handleChange} type="text" />
+                <Form.Text className="text-muted">
+                  This is my personalized and SMART version of this goal:
+                </Form.Text>
+                <Form.Control value={this.state.messageStr} onChange={this.handleChange} type="text" />
               </Form.Group>
               {/* <Button variant="primary" type="submit">
                 Share

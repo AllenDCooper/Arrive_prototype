@@ -125,7 +125,7 @@ class Connect extends Component {
 
     return (
       this.state.courseClicked ?
-        <InstitutionalSpace courseClickChange={this.courseClickChange} updateUserInState={this.props.updateUserInState} user={this.props.user} />
+        <InstitutionalSpace courseClickChange={this.courseClickChange} updateUserInState={this.props.updateUserInState} user={this.props.user} groupArr={this.state.groupArr} />
         :
         <div className="course-page-wrapper">
           <NavigationBar user={this.props.user} displayName={this.props.displayName} updateUserInState={this.props.updateUserInState} toggleShowGroupSelect={this.toggleShowGroupSelect} showGroupSelect={this.state.showGroupSelect} />
