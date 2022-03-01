@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Toast, ToastContainer } from 'react-bootstrap';
+import { Button, Toast, ToastContainer } from 'react-bootstrap';
 import { hideMessageInChannel, deleteMessageFromUser, auth, groupLookup } from '../../firebase';
+import { BsX } from 'react-icons/bs';
 
 const ToastMessage = (props) => {
   console.log(props)
@@ -19,17 +20,20 @@ const ToastMessage = (props) => {
     console.log('getGroupName run')
     console.log(groupId)
     console.log(groupLookup(groupId));
-    return(groupLookup(groupId))
+    return (groupLookup(groupId))
   }
 
   if (!props.message[1].hide || !props.message[1].hide[props.user.uid]) {
     if (props.groupSelect[0] === 'All' || props.message[1].groupId === props.groupSelect[0]) {
       return (
-        <Toast style={{ width: '100%' }} show={showToast} onClose={() => handleClose(props.message[0])}>
-          <Toast.Header>
+        <Toast style={{ width: '100%' }} show={showToast}>
+          <Toast.Header closeButton={false}>
             {/* <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" /> */}
-            <strong className="me-auto" style={{color: 'black'}}>{props.message[1].displayName}<span style={{fontWeight: '500', color: 'slategray'}}> to {getGroupName(props.message[1].groupId)}</span></strong>
+            <strong className="me-auto" style={{ color: 'black' }}>{props.message[1].displayName}<span style={{ fontWeight: '500', color: 'slategray' }}> to {getGroupName(props.message[1].groupId)}</span></strong>
             <small className="text-muted">{props.message[1].time}</small>
+            <Button variant='light' onClick={() => handleClose(props.message[0])}>
+              <BsX />
+            </Button>
           </Toast.Header>
           <Toast.Body>{props.message[1].message}</Toast.Body>
         </Toast>

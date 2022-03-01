@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Card, Row, Col, Offcanvas, Form, FormControl, Button, Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Card, Dropdown, Row, Col, Offcanvas, Form, FormControl, Button, Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { auth } from '../../firebase';
 import EditProfile from '../EditProfile/EditProfile';
 import "./NavigationBarInCourse.css"
+import {BsChevronLeft} from 'react-icons/bs';
 
 
 function NavigationBarInCourse(props) {
@@ -26,6 +27,10 @@ function NavigationBarInCourse(props) {
     menuLink: {
       color: 'white',
       fontWeight: '300',
+    },
+    navLinkTitle: {
+      color: 'white',
+      fontWeight: 'bold'
     }
   }
 
@@ -49,16 +54,36 @@ function NavigationBarInCourse(props) {
     //   </Navbar.Collapse>
     // </Navbar>
     <div>
-      <div style={{ height: '126px' }}></div>
+      <div style={{ height: '135px' }}></div>
       <div style={{ position: 'fixed', top: '0px', width: '768px', maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
         <Navbar expand={false} style={{ backgroundColor: '#1565c0', color: "#fff" }}>
           <Container fluid style={{ color: "#fff" }}>
             <Row style={{ width: '100%', paddingTop: '10px', paddingBottom: '10px', fontWeight: '600', margin: '0px' }}>
               <Col xs={2}>
-                <span onClick={props.courseClickChange}><img alt='add course icon' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/arrow_carrot-left.svg' style={{ height: '21px', width: '13px' }} /></span>
+                <Button variant='link' style={{color: 'white', textDecoration: 'none', fontWeight: '700', padding: '0px'}} onClick={props.courseClickChange}>
+                  {/* <img alt='add course icon' src='https://institutional-web-assets-share.s3.amazonaws.com/iClicker/student/images/arrow_carrot-left.svg' style={{ height: '21px', width: '13px' }} /> */}
+                  <BsChevronLeft style={{height: '25px', width: '25px'}} />
+                  </Button>
               </Col>
               <Col xs={8} style={{ textAlign: 'center', fontSize: '20px' }}>
-                <Navbar.Brand style={{ color: "#fff", marginRight: '0px' }}>Compass College FYE</Navbar.Brand>
+                <Navbar.Brand style={{ color: "#fff", marginRight: '0px' }}>
+                  {/* Compass College FYE */}
+                  <NavDropdown bsPrefix="nav-dropdown-group" menuVariant="light" id="dropdown-basic" style={{ width: '100%', color: 'white', textDecoration: 'none', fontSize: '1.25rem', padding: '0px' }}
+                  title={props.groupSelect[1].groupName}
+                  >
+                    <NavDropdown.Item onClick={() => props.handleGroupSelectChange(['All', { groupName: 'All' }])}>All</NavDropdown.Item>
+
+                    {props.groupArr.map(group => (
+                      group[1].subscribed ?
+                        group[1].subscribed[props.user.uid] ?
+                          <NavDropdown.Item onClick={() => props.handleGroupSelectChange(group)}>{group[1].groupName}</NavDropdown.Item>
+                          :
+                          null
+                        :
+                        null
+                    ))}
+                  </NavDropdown>
+                </Navbar.Brand>
               </Col>
               <Col xs={2} style={{ textAlign: 'center', fontSize: '20px' }}>
               </Col>

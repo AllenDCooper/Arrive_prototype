@@ -27,3 +27,17 @@
   height: 15px;
   margin-bottom: 5px;
 }
+
+.nav-dropdown-group {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  font-size: 1.25rem;
+  padding: 0px;
+  text-transform: none;
+}
+.nav-dropdown-group:hover {
+  color: lightgray;
+  text-decoration: none;
+  text-transform: none;
+}
