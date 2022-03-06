@@ -168,22 +168,27 @@ export const pushMessageObjInDB = (uid, displayName, message) => {
 
 export const groupLookup = (groupId) => {
   console.log(groupId)
-  let groupName = ''
+  let groupObj = []
   if (!groupId || groupId === 'All' ) {
-    groupName = ('All')
+    groupObj = [["All", {groupName: 'All'}]]
   } else {
-    database.ref('groups/' + groupId).once('value', (snapshot) => {
-      console.log(snapshot.val().groupName);
-      groupName = snapshot.val().groupName
+    database.ref('groups/').once('value', (snapshot) => {
+      const data = snapshot.val()
+      console.log(data)
+      const groupArr = Object.entries(data)
+      console.log(groupArr)
+      groupObj = groupArr.filter(group => group[0] === groupId)
+      console.log(groupObj)
+      
     }).catch((error) => {
       console.error(error);
     });
   }
-  console.log(groupName)
-  return groupName
+  console.log(groupObj)
+  return groupObj
 }
 
-export const pushMessageIntoChannel = (uid, displayName, messageStr, groupId) => {
+export const pushMessageIntoChannel = (uid, displayName, messageStr, messageType, groupId) => {
   console.log(uid);
   console.log(displayName);
   console.log(messageStr);
@@ -192,6 +197,7 @@ export const pushMessageIntoChannel = (uid, displayName, messageStr, groupId) =>
     uid: uid,
     displayName: displayName,
     message: messageStr,
+    messageType: messageType,
     groupId: groupId,
     time: new Date()
   }
